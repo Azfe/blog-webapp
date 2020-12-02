@@ -1,14 +1,22 @@
+<?php
+    // Se verifica si existe una búsqueda, de lo contrario devuelve al index
+    if(!isset($_POST['busqueda'])){
+        header("Location: index.php");
+    }
+?>
+
 <?php require_once 'includes/header.php';?>
-                
 <?php require_once 'includes/sidebar.php';?>
 
 <!-- CAJA PRINCIPAL -->
 <div id="main-box">
-    <h1>Últimas entradas</h1>
+
+    <h1>Búsqueda: <?=$_POST['busqueda']?></h1>
     
     <?php 
-        $entradas = getEntradas($db, true);
-        if(!empty($entradas)):
+        $entradas = getEntradas($db, null, null, $_POST['busqueda']);
+        
+        if(!empty($entradas) && mysqli_num_rows($entradas) >= 1):
             while($entrada = mysqli_fetch_assoc($entradas)):
     ?>
         <article class="entrada">            
@@ -19,15 +27,15 @@
                     <?= substr($entrada['descripcion'], 0, 180)."[...]" ?>
                 </p>
             </a>
-        </article>
+        </article>        
     <?php
             endwhile;
-        endif;
+        else:
     ?>
+    <div class="alerta">No hay entradas en esta categoría</div>
+    <?php endif; ?>
   
-    <div id="ver-todas">
-        <a href="posts.php">Ver todas las entradas</a>
-    </div>  
 </div> <!-- Fin main-box -->
 
 <?php require_once 'includes/footer.php';?>
+

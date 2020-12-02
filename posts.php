@@ -4,10 +4,10 @@
 
 <!-- CAJA PRINCIPAL -->
 <div id="main-box">
-    <h1>Últimas entradas</h1>
+    <h1>Todas las entradas</h1>
     
     <?php 
-        $entradas = getEntradas($db, true);
+        $entradas = getEntradas($db);
         if(!empty($entradas)):
             while($entrada = mysqli_fetch_assoc($entradas)):
     ?>
@@ -19,15 +19,19 @@
                     <?= substr($entrada['descripcion'], 0, 180)."[...]" ?>
                 </p>
             </a>
-        </article>
+        </article>        
     <?php
             endwhile;
         endif;
     ?>
   
-    <div id="ver-todas">
-        <a href="posts.php">Ver todas las entradas</a>
-    </div>  
 </div> <!-- Fin main-box -->
 
-<?php require_once 'includes/footer.php';?>
+<?php require_once 'includes/footer.php';?><?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+

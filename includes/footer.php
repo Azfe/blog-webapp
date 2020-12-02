@@ -4,6 +4,7 @@
         <!-- FOOTER -->
         <footer id="footer">
             <p>Desarrollado por Azup Studio &copy; 2020</p>            
-        </footer>        
+        </footer>  
+        <?php //borrarErrores(); ?>
     </body>
 </html>

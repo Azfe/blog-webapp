@@ -24,14 +24,39 @@ if(isset($_POST)){ // Se valida si llega alguna información por POST desde form
     
     if(empty($categoria) && !is_numeric($categoria)){
         $errores['categoria'] = "La categoría no es válida";
-    }
+    }    
+    
+    // Se guarda categoría en la base de datos:
+    if(count($errores) == 0){
+        if(isset($_GET['editar'])){
+            $entrada_id = $_GET['editar'];
+            $usuario_id = $_SESSION['usuario']['id'];
+            /*
+            var_dump($entrada_id);
+            var_dump($usuario_id);
+            die();*/
+            
+            $sql = "UPDATE entradas SET titulo = '$titulo', descripcion = '$descripcion', categoria_id = $categoria ".
+                    "WHERE id = $entrada_id AND usuario_id = $usuario_id";
+            
+        }else{
+            $sql = "INSERT INTO entradas VALUES(null, '$usuario', $categoria, '$titulo', '$descripcion', CURDATE());";            
+        }        
         
-    if(count($errores == 0)){
-        $sql = "INSERT INTO entradas VALUES(null, '$usuario', $categoria, '$titulo', '$descripcion', CURDATE());";
-        $guardar = mysqli_query($db, $sql); // Se ejecuta la consulta
+        $guardar = mysqli_query($db, $sql); // Se ejecuta la consulta   
+        
+        //Comprobar errores mysql:
+        //var_dump(mysqli_error());
+        //die();        
+        
+        header("Location: index.php");
     }else{
         $_SESSION["errores_entrada"] = $errores;
+        
+        if(isset($_GET['editar'])){
+            header("Location: edit-post.php?id=".$_GET['editar']);
+        }else{
+            header("Location: create-post.php");
+        }
     }
 }
-
-header("Location: index.php");

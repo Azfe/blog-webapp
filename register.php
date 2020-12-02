@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
     }
     
     // Validar email:
-    if(!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/[0-9]/", $email)){
+    if(!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)){
         $email_validate = true;
     }else{
         $email_validate = false;

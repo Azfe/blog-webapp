@@ -1,5 +1,14 @@
 <!-- SIDEBAR -->
-<aside id="sidebar">    
+<aside id="sidebar">  
+    
+    <div id="searcher" class="block-aside">
+        <h3>Buscar</h3>
+       
+        <form action="search.php" method="POST">
+            <input type="text" name="busqueda"/>
+            <input type="submit" value="Buscar"/>
+        </form>
+    </div>
     
     <?php if(isset($_SESSION['usuario'])): ?> <!-- Si existe el usuario identificado -->        
         <div id="usuario-logueado" class="block-aside">
@@ -7,7 +16,7 @@
             <!-- Botones -->
             <a href="create-post.php" class="boton boton-verde">Crear entradas</a>
             <a href="create-category.php" class="boton">Crear categoría</a>
-            <a href="logout.php" class="boton boton-naranja">Mis datos</a>
+            <a href="mydata.php" class="boton boton-naranja">Mis datos</a>
             <a href="logout.php" class="boton boton-rojo">Cerrar sesión</a>
         </div>
     <?php endif; ?>
@@ -33,7 +42,7 @@
         </form>
     </div>
 
-    <div id="login" class="block-aside">
+    <div id="register" class="block-aside">
         
         <?php// if(isset($_SESSION['errores'])): ?>
             <?php //var_dump($_SESSION['errores']); ?>
@@ -46,7 +55,7 @@
             <div class="alerta alerta-exito">
                 <?= $_SESSION['completado']; ?>
             </div>
-        <?php elseif(isset($_SESSION['errores']['general'])): ?>
+         <?php elseif(isset($_SESSION['errores']['general'])): ?>
             <div class="alerta alerta-error">
                 <?= $_SESSION['errores'] ['general']; ?>
             </div>            
